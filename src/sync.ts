@@ -46,12 +46,13 @@ export async function handleSyncCommand(source: string, options: {
 
   // get deleted files
   const deletedFiles = getDeletedFiles(sourceFiles, bucketObjects)
-
-  console.log(`${deletedFiles.length} files need to be deleted`)
-  for (const obj of deletedFiles) {
-    console.log(`deleting ${obj.Key}`)
-    if (!options.dryRun) {
-      await s3.deleteObject({ Bucket: options.bucketName, Key: obj.Key })
+  if(deletedFiles?.length > 0) {
+    console.log(`${deletedFiles.length} files need to be deleted`)
+    for (const obj of deletedFiles) {
+      console.log(`deleting ${obj.Key}`)
+      if (!options.dryRun) {
+        await s3.deleteObject({ Bucket: options.bucketName, Key: obj.Key })
+      }
     }
   }
 }
