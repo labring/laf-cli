@@ -12,7 +12,7 @@ export async function handleSyncCommand(source: string, options: {
 
   // get bucket objects
   const res = await s3.listObjectsV2({ Bucket: options.bucketName, Delimiter: '' })
-  const bucketObjects = res.Contents
+  const bucketObjects = res.Contents || []
 
   // get source files
   const abs_source = path.resolve(source)
