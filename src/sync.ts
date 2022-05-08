@@ -2,6 +2,7 @@ import { S3 } from '@aws-sdk/client-s3'
 import * as fs from 'node:fs'
 import * as path from 'node:path'
 import { createHash } from 'node:crypto'
+import * as mime from 'mime'
 
 
 export async function handleSyncCommand(source: string, options: {
@@ -34,12 +35,13 @@ export async function handleSyncCommand(source: string, options: {
   console.log(`${updatedFiles.length} files need to be updated`)
 
   for (const file of updatedFiles) {
-    console.log(`uploading ${file.key}`)
+    console.log(`uploading ${file.key} with: ${mime.getType(file.key)}`)
     if (!options.dryRun) {
       await s3.putObject({
         Bucket: options.bucketName,
         Key: file.key,
-        Body: fs.readFileSync(path.resolve(source, file.abs_path))
+        Body: fs.readFileSync(path.resolve(source, file.abs_path)),
+        ContentType: mime.getType(file.key)
       })
     }
   }
