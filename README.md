@@ -6,17 +6,17 @@
 npm i laf-cli -g
 ```
 
-## Examples 
+## Usage 
 
-####  use laf-cli to sync website files to a OSS bucket
-
-##### 1. write `.env` file in your project root directory to set the following variables:
-```env
-OSS_ENDPOINT=https://oss.lafyun.com
-OSS_ACCESS_KEY=xxxxx
-OSS_ACCESS_SECRET=xxxxxx
-OSS_BUCKET_NAME=xxxxxx
-OSS_REGION=cn-default
+#### 1. Generate a env file template for laf-cli: `.env`
+```bash
+  laf-cli init --access-key xxxxx --access-secret xxxxxx --bucket xxxxxx
 ```
 
-##### 2. run `laf-cli sync ./dist` command to sync files to OSS bucket
+#### 2. run `laf-cli sync ./dist` command to sync files to OSS bucket
+
+
+## Upgrade laf-cli
+```sh
+  npm i laf-cli@latest -g
+```
